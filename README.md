@@ -1,6 +1,6 @@
-## Django REST Framework 게시판
+# Django REST Framework 게시판
 
-### API 분류
+## API 분류
 ### 회원 관련 기능 (users)
 * 회원가입
 * 로그인
