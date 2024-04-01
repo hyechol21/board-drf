@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'users',
     'corsheaders',
     'posts',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
     ],
 }
 
