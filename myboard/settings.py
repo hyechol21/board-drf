@@ -10,28 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
-import dj_database_url
-import environ
-env = environ.Env()
-environ.Env.read_env()
+# import dj_database_url
+# import environ
+# env = environ.Env()
+# environ.Env.read_env()
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-6+p@ks7y3g1&y+7rw#c@&(rl7nugz1+v+j69endbgcv0d9ij%x'
-SECRET_KEY = os.environ['secret_key']
+SECRET_KEY = 'django-insecure-6+p@ks7y3g1&y+7rw#c@&(rl7nugz1+v+j69endbgcv0d9ij%x'
+# SECRET_KEY = os.environ['secret_key']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '.herokuapp.com',
@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'myboard.custom_exception_handler.ExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'myboard.urls'
@@ -95,13 +96,13 @@ WSGI_APPLICATION = 'myboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -133,6 +134,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 3,
+    'EXCEPTION_HANDLER': 'myboard.custom_exception_handler.handler_exception',
 }
 
 
