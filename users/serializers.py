@@ -12,15 +12,18 @@ from .models import Profile
 # 회원가입 시리얼라이저
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
+        help_text="이메일(Unique)",
         required = True,
         validators = [UniqueValidator(queryset=User.objects.all())],
     )
     password = serializers.CharField(
+        help_text="비밀번호",
         write_only = True,
         required = True,
         validators = [validate_password],
     )
     password2 = serializers.CharField(
+        help_text="비밀번호 재입력",
         write_only = True,
         required = True,
     )
